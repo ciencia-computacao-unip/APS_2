@@ -5,8 +5,8 @@ Mesmo com os horários sincronizados, se a mensagem demorar mais de 30 segundos 
 Forma de envio:
 Mensagem descriptografada ──────────────────────┬───Gera mensagem criptografada───envia em variável $msg
 senha para sincronia      ────────┐             │
-Horário                   ────────┴-Gera hash───┘
-Segundos                  ────────────────────────────────────────────────────────envia em variavel $time
+Horário                   ───┬────┴─Gera hash───┘
+Segundos                     └──pega os segundos a partir do horario───────────envia em variavel $time
 
 Forma de recebimento:
 Mensagem criptografada                  ─$msg──────────────────────────────────────────────────────────┬Descriptografa a mensagem
