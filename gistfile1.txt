@@ -3,16 +3,16 @@ Os 2 computadores devem ter datas sincronizadas (hora/min/seg) => Caso não este
 Mesmo com os horários sincronizados, se a mensagem demorar mais de 30 segundos para ser recebida, será descriptografada de forma errada. (Aparecerão numeros esquisitos...)
 
 Forma de envio:
-Mensagem descriptografada	────────────────────┬───Gera mensagem criptografada───envia em variável $msg
-senha para sincronia		────────┐						  │
-Horário								 	────────┴-Gera hash───┘
-Segundos								──────────────────────────────────────────envia em variavel $time
+Mensagem descriptografada	──────────────────────┬───Gera mensagem criptografada───envia em variável $msg
+senha para sincronia		────────┐	      │
+Horário				────────┴-Gera hash───┘
+Segundos			────────────────────────────────────────────────────────envia em variavel $time
 
 Forma de recebimento:
-Mensagem criptografada							───$msg──────────────────────────────────────────────────────┬Descriptografa a mensagem
-senha para sincronia(mesma do envio)	───────────────────────────────┐										       │
-Horário										 			────────┬Procura horario de envio*───┴Gera hash(igual a de envio)┘
-Segundos												───$time┘
+Mensagem criptografada			─$msg──────────────────────────────────────────────────────────┬Descriptografa a mensagem
+senha para sincronia(mesma do envio)	───────────────────────────────────┐                           │
+Horário					───────┬Procura horario de envio*──┴Gera hash(igual a de envio)┘
+Segundos				──$time┘
 
 * Ao procurar o horário, o sistema vai ver qual o tempo é mais próximo. Ex:
 Horario de envio foi 11:02:34
