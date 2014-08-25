@@ -39,4 +39,3 @@ Programa +- em PHP para criação da hash:
 	$hash = hash('sha256', $hash_descriptografada); //gera a hash. Isso será enviado para o outro computador
 	$time = date('s',$hora); //gera os segundos. Também será enviado para o outro computador
 ?>
-	
