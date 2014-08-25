@@ -31,7 +31,7 @@ Com isso, temos uma string de $hash_descriptografada como a seguinte: "senhasupe
 Agora precisamos encriptar isso na hash sha256. No PHP é só fazer o seguinte: hash('sha256', $hash_descriptografada);
 Pronto, essa hash foi gerada e após isso é necessário gerar a hash da variável $msg
 
-Programa +- em PHP para criação da hash e criptografia da senha:
+Programa em PHP para criação da hash e criptografia da senha:
 <?php
 	$senha = "senhasupersecreta"; //Senha que deve ser igual entre os dois computadores
 	$hora = time(); //pega um numero inteiro de todos os segundos. (Assim pode gerar a data completa)
