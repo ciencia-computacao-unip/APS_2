@@ -44,8 +44,7 @@ Programa em PHP para criação da hash e criptografia da senha:
 Descriptografar a mensagem (Lembre-se que deve receber as variáveis $msg e $time):
 <?php
 	$senha = "senhasupersecreta"; //Senha que deve ser igual entre os dois computadores
-	$data_agora = new DateTime(date());
-	$data_antiga = $data_agora;
+	$data_antiga = new DateTime(date());
 	if($data_agora->format('s')<$time){
 		$data_antiga->setTime($data_antiga->format('H'),$data_antiga->format('i')-1,$time);
 	}else{
