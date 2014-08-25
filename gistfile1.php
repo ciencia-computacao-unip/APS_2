@@ -55,3 +55,5 @@ Descriptografar a mensagem (Lembre-se que deve receber as variáveis $msg e $tim
 	$hash_antiga = hash('sha256', $hash_antiga_descriptografada); //gera a hash. Isso irá criptografar a mensagem
 	$mensagem_descriptografada = openssl_decrypt($msg, 'AES-256-CBC', $hash_antiga);
 ?>
+
+Obs.: o tempo de criptografia e descriptografia (somados) não chegou a 100 milisegundos.
