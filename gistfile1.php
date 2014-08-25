@@ -1,6 +1,6 @@
 Comunicação criptografada de descriptografada por uma hash única e por um número inteiro até 60.
 Os 2 computadores devem ter datas sincronizadas (hora/min/seg) => Caso não estejam sincronizados (diferença de mais de 30 segundos) a criptografia não vai funcionar
-Mesmo com os horários sincronizados, se a mensagem demorar mais de 30 segundos para ser recebida, será descriptografada de forma errada. (Aparecerão numeros esquisitos...)
+Mesmo com os horários sincronizados, se a mensagem demorar mais de 60 segundos para ser recebida, será descriptografada de forma errada. (Aparecerão numeros esquisitos...)
 
 Forma de envio:
 Mensagem descriptografada ──────────────────────┬───Gera mensagem criptografada───envia em variável $msg
