@@ -36,6 +36,6 @@ Programa +- em PHP para criação da hash:
 	$senha = "senhasupersecreta"; //Senha que deve ser igual entre os dois computadores
 	$hora = time(); //pega um numero inteiro de todos os segundos. (Assim pode gerar a data completa)
 	$hash_descriptografada = $senha.$hora; //soma a senha com a hora
-	$hash = hash('sha256', $hash_descriptografada); //gera a hash. Isso será enviado para o outro computador
+	$hash = hash('sha256', $hash_descriptografada); //gera a hash. Isso irá criptografar a mensagem
 	$time = date('s',$hora); //gera os segundos. Também será enviado para o outro computador
 ?>
