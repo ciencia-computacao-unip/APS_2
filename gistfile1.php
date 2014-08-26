@@ -57,3 +57,5 @@ Descriptografar a mensagem (Lembre-se que deve receber as variáveis $msg e $tim
 ?>
 
 Obs.: o tempo de criptografia e descriptografia (somados) não chegou a 100 milisegundos.
+
+C# e NodeJS: http://stackoverflow.com/questions/13714103/hashing-a-password-using-sha256-and-net-node-js
