@@ -1,4 +1,3 @@
-
 Programa em PHP para criação da hash e criptografia da senha:
 <?php
 	$senha = "senhasupersecreta"; //Senha que deve ser igual entre os dois computadores
