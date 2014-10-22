@@ -10,7 +10,30 @@ namespace ConsoleApplication7
 {
     class Program
     {
-
+        public static string DecryptMessage(string text, string key)
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.KeySize = 256;
+            aes.BlockSize = 256;
+            aes.Padding = PaddingMode.Zeros;
+            aes.Mode = CipherMode.CBC;
+         
+            aes.Key = Encoding.Default.GetBytes(key);
+         
+            text = Encoding.Default.GetString(Convert.FromBase64String(text));
+            
+            string IV = text;
+            IV = IV.Substring(IV.IndexOf("-[--IV-[-") + 9);
+            text = text.Replace("-[--IV-[-" + IV, "");
+         
+            text = Convert.ToBase64String(Encoding.Default.GetBytes(text));
+            aes.IV = Encoding.Default.GetBytes(IV);
+         
+            ICryptoTransform AESDecrypt = aes.CreateDecryptor(aes.Key, aes.IV);
+            byte[] buffer = Convert.FromBase64String(text);
+         
+            return Encoding.Default.GetString(AESDecrypt.TransformFinalBlock(buffer, 0, buffer.Length));
+        }
         public static string EncryptMessage(byte[] text, string key)
         {
             RijndaelManaged aes = new RijndaelManaged();
