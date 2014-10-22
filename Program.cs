@@ -64,25 +64,6 @@ namespace ConsoleApplication7
             Console.Write(EncryptMessage(teste, senha_criptografada_diminuida));
             Console.ReadKey();
 
-            /*
-            //RijndaelManaged aes = new RijndaelManaged();
-            //aes.KeySize = 256;
-            //aes.BlockSize = 256;
-            aes.Padding = PaddingMode.Zeros;
-            aes.Mode = CipherMode.CBC;
-
-            aes.Key = Encoding.Default.GetBytes(senha);
-            aes.GenerateIV();
-
-            string IV = ("-[--IV-[-" + Encoding.Default.GetString(aes.IV));
-
-            ICryptoTransform AESEncrypt = aes.CreateEncryptor(aes.Key, aes.IV);
-            byte[] buffer = Convert.ToByte[](texto);
-            Convert.ToBase64String(Encoding.Default.GetBytes(Encoding.Default.GetString(AESEncrypt.TransformFinalBlock(buffer, 0, buffer.Length)) + IV));
-
-
-            */
-
         }
     }
 }
