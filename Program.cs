@@ -6,36 +6,32 @@ using System.Threading.Tasks;
 using System.Security;
 using System.Security.Cryptography;
 
-namespace ConsoleApplication7
-{
-    class Program
-    {
-        public static string DecryptMessage(string text, string key)
-        {
+namespace ConsoleApplication7{
+    class Program{
+        public static string DecryptMessage(string text, string key){
             RijndaelManaged aes = new RijndaelManaged();
             aes.KeySize = 256;
             aes.BlockSize = 256;
             aes.Padding = PaddingMode.Zeros;
             aes.Mode = CipherMode.CBC;
-         
+
             aes.Key = Encoding.Default.GetBytes(key);
-         
+
             text = Encoding.Default.GetString(Convert.FromBase64String(text));
-            
+
             string IV = text;
             IV = IV.Substring(IV.IndexOf("-[--IV-[-") + 9);
             text = text.Replace("-[--IV-[-" + IV, "");
-         
+
             text = Convert.ToBase64String(Encoding.Default.GetBytes(text));
             aes.IV = Encoding.Default.GetBytes(IV);
-         
+
             ICryptoTransform AESDecrypt = aes.CreateDecryptor(aes.Key, aes.IV);
             byte[] buffer = Convert.FromBase64String(text);
-         
+
             return Encoding.Default.GetString(AESDecrypt.TransformFinalBlock(buffer, 0, buffer.Length));
         }
-        public static string EncryptMessage(byte[] text, string key)
-        {
+        public static string EncryptMessage(byte[] text, string key){
             RijndaelManaged aes = new RijndaelManaged();
             aes.KeySize = 256;
             aes.BlockSize = 256;
@@ -56,10 +52,13 @@ namespace ConsoleApplication7
 
 
 
-        static void Main(string[] args)
-        {
-            string texto = "Texto a ser criptografado";
-            string senha = "senhasupasdasdasdasdasdersecr123123123123123123eta";
+        static void Main(string[] args){
+            Console.Write("Digite uma senha: ");
+            string senha, texto;
+            senha = Console.ReadLine();
+            Console.Write("Digite sua mensagem: ");
+            texto = Console.ReadLine();
+            
             string hora = DateTime.Now.ToString("ddMMyyhmmss");
             string segundos = DateTime.Now.ToString("ss");
             string senha_descriptografada = senha + hora;
@@ -67,24 +66,23 @@ namespace ConsoleApplication7
             var byteSourceText = ue.GetBytes(senha_descriptografada);
             var byteHash = new System.Security.Cryptography.SHA256Managed().ComputeHash(byteSourceText);
             string senha_criptografada = Convert.ToBase64String(byteHash);
-            string senha_criptografada_diminuida = senha_criptografada.Substring(0,32);
-            Console.WriteLine(senha_criptografada.Length);
-            Console.WriteLine(senha_criptografada_diminuida);
-            Console.WriteLine(segundos);
-            Console.ReadKey();
-            int x=0;
+            string senha_criptografada_diminuida = senha_criptografada.Substring(0, 32);
+            int x = 0;
             byte[] teste = new byte[texto.Length];
             char seila;
             while (x < texto.Length)
             {
-               seila = Convert.ToChar(texto.Substring(x, 1));
-               teste[x] = Convert.ToByte(seila);
-               x++;
+                seila = Convert.ToChar(texto.Substring(x, 1));
+                teste[x] = Convert.ToByte(seila);
+                x++;
             }
 
 
+            string mensagem_criptografada = EncryptMessage(teste, senha_criptografada_diminuida);
 
-            Console.Write(EncryptMessage(teste, senha_criptografada_diminuida));
+            Console.WriteLine("\n" + mensagem_criptografada);
+            Console.WriteLine(segundos);
+
             Console.ReadKey();
 
         }
