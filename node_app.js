@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 var texto="Este texto é criptografado usando meu novo método de criptografia. A vantagem desse tipo de criptografia é que, para cada segundo, uma chave totalmente diferente é usada.";
 var senha = "senhasupersecreta"; //Senha que deve ser igual entre os dois computadores
-var data_agora = new Date();
+var data_agora = new Date(); // só pra fazer uma média mesmo
 var hora = Math.floor(data_agora.getTime()/1000);//pega um numero inteiro de todos os segundos. (Assim pode gerar a data completa)
 var hash_descriptografada = senha+hora; //soma a senha com a hora
 var hash = crypto.createHash('sha256').update(hash_descriptografada).digest('hex'); //gera a hash. Isso irá criptografar a mensagem --> incompatibilidade com o PHP - ainda comprime em base64
