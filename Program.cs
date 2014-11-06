@@ -44,7 +44,7 @@ namespace ConsoleApplication7{
             bool check_nome = false;
             while(linha < texto_arquivo.Length){
                 int segundos = 0;
-                string texto_criptografado;
+                string texto_criptografado,horario_mensagem;
                 if (linha % 5 == 0 && texto_arquivo[linha] != "")
                 {
                     if (texto_arquivo[linha] != nome)
@@ -56,12 +56,24 @@ namespace ConsoleApplication7{
                 if (linha % 5 == 1 && texto_arquivo[linha] != "" &&check_nome==true)
                 {
                     int.TryParse(texto_arquivo[linha], out segundos);
-                    Console.Write("aos "+segundos+" segundos: ");
+                    DateTime novo;
+                    DateTime agora = DateTime.Now;
+                    if (agora.Second < segundos)
+                    {
+                        novo = new DateTime(agora.Year, agora.Month, agora.Day, agora.Hour, agora.Minute - 1, segundos);
+                    }
+                    else
+                    {
+                        novo = new DateTime(agora.Year, agora.Month, agora.Day, agora.Hour, agora.Minute, segundos);
+                    }
+                    horario_mensagem = novo.ToString("ddMMyyhmmss");
+                    Console.Write("às "+horario_mensagem+" : ");
                 }
                 if (linha % 5 == 2 && texto_arquivo[linha] != "" && check_nome == true)
                 {
                     texto_criptografado = texto_arquivo[linha];
-                    Console.Write(texto_arquivo[linha] + "\n");
+                    
+                    Console.Write(texto_criptografado + "\n");
                 }
                 linha++;
             }
@@ -98,6 +110,7 @@ namespace ConsoleApplication7{
             Convert.ToBase64String(Encoding.Default.GetBytes(Encoding.Default.GetString(AESEncrypt.TransformFinalBlock(buffer, 0, buffer.Length)) + IV));
         }
         static void Main(string[] args){
+
             Console.Write("Digite seu nome:");
             string nome, senha,local_arquivo;
             int modo;
