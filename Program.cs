@@ -44,7 +44,7 @@ namespace ConsoleApplication7{
             bool check_nome = false;
             while(linha < texto_arquivo.Length){
                 int segundos = 0;
-                string texto_criptografado,horario_mensagem;
+                string texto_criptografado,horario_mensagem="";
                 if (linha % 5 == 0 && texto_arquivo[linha] != "")
                 {
                     if (texto_arquivo[linha] != nome)
@@ -72,8 +72,18 @@ namespace ConsoleApplication7{
                 if (linha % 5 == 2 && texto_arquivo[linha] != "" && check_nome == true)
                 {
                     texto_criptografado = texto_arquivo[linha];
-                    
+
+
+                    string senha_descriptografada = senha + horario_mensagem;
+                    var ue = new UnicodeEncoding();
+                    var byteSourceText = ue.GetBytes(senha_descriptografada);
+                    var byteHash = new System.Security.Cryptography.SHA256Managed().ComputeHash(byteSourceText);
+                    string senha_criptografada = Convert.ToBase64String(byteHash);
+                    string senha_criptografada_diminuida = senha_criptografada.Substring(0, 32);
+
+                    Console.Write(DecryptMessage(texto_criptografado, senha_criptografada_diminuida)+"\n");
                     Console.Write(texto_criptografado + "\n");
+                    Console.ReadKey();
                 }
                 linha++;
             }
@@ -101,11 +111,15 @@ namespace ConsoleApplication7{
             aes.BlockSize = 256;
             aes.Padding = PaddingMode.Zeros;
             aes.Mode = CipherMode.CBC;
+
             aes.Key = Encoding.Default.GetBytes(key);
             aes.GenerateIV();
+
             string IV = ("-[--IV-[-" + Encoding.Default.GetString(aes.IV));
+
             ICryptoTransform AESEncrypt = aes.CreateEncryptor(aes.Key, aes.IV);
             byte[] buffer = text;
+
             return
             Convert.ToBase64String(Encoding.Default.GetBytes(Encoding.Default.GetString(AESEncrypt.TransformFinalBlock(buffer, 0, buffer.Length)) + IV));
         }
