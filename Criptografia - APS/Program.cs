@@ -56,107 +56,15 @@ namespace Criptografia___APS
             }
             return "Texto sem senha!Texto sem senha!Texto sem senha!Texto sem senha!"; //retorna esse testo, caso a string seja vazia
         }
-
-        public static string Criptografar(string text, string cryptoKey)
+        public static string Criptografar(string texto_descriptografado, string senha)
         {
-            try
-            {
-                // Se a string não está vazia, executa a criptografia
-                if (!string.IsNullOrEmpty(text))
-                {
-                    // Cria instancias de vetores de bytes com as chaves                
-                    byte[] bKey = Convert.FromBase64String(cryptoKey);
-                    byte[] bText = new UTF8Encoding().GetBytes(text);
-
-                    // Instancia a classe de criptografia Rijndael
-                    Rijndael rijndael = new RijndaelManaged();
-
-                    // Define o tamanho da chave "256 = 8 * 32"                
-                    // Lembre-se: chaves possíves:                
-                    // 128 (16 caracteres), 192 (24 caracteres) e 256 (32 caracteres)                
-                    rijndael.KeySize = 256;
-
-                    // Cria o espaço de memória para guardar o valor criptografado:                
-                    MemoryStream mStream = new MemoryStream();
-                    // Instancia o encriptador                 
-                    CryptoStream encryptor = new CryptoStream(
-                        mStream,
-                        rijndael.CreateEncryptor(bKey, bIV),
-                        CryptoStreamMode.Write);
-
-                    // Faz a escrita dos dados criptografados no espaço de memória
-                    encryptor.Write(bText, 0, bText.Length);
-                    // Despeja toda a memória.                
-                    encryptor.FlushFinalBlock();
-                    // Pega o vetor de bytes da memória e gera a string criptografada                
-                    return Convert.ToBase64String(mStream.ToArray());
-                }
-                else
-                {
-                    // Se a string for vazia retorna nulo                
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Se algum erro ocorrer, dispara a exceção            
-                throw new ApplicationException("Erro ao criptografar", ex);
-            }
+            string texto_criptografado = texto_descriptografado;
+            return texto_criptografado;
         }
-
-        /// <summary>     
-        /// Pega um valor previamente criptografado e retorna o valor inicial 
-        /// </summary>     
-        /// <param name="text">texto criptografado</param>     
-        /// <returns>valor descriptografado</returns>     
-        public static string Descriptografar(string text, string cryptoKey)
+        public static string Descriptografar(string texto_criptografado, string senha)
         {
-            try
-            {
-                // Se a string não está vazia, executa a criptografia           
-                if (!string.IsNullOrEmpty(text))
-                {
-                    // Cria instancias de vetores de bytes com as chaves                
-                    byte[] bKey = Convert.FromBase64String(cryptoKey);
-                    byte[] bText = Convert.FromBase64String(text);
-
-                    // Instancia a classe de criptografia Rijndael                
-                    Rijndael rijndael = new RijndaelManaged();
-
-                    // Define o tamanho da chave "256 = 8 * 32"                
-                    // Lembre-se: chaves possíves:                
-                    // 128 (16 caracteres), 192 (24 caracteres) e 256 (32 caracteres)                
-                    rijndael.KeySize = 256;
-
-                    // Cria o espaço de memória para guardar o valor DEScriptografado:               
-                    MemoryStream mStream = new MemoryStream();
-
-                    // Instancia o Decriptador                 
-                    CryptoStream decryptor = new CryptoStream(
-                        mStream,
-                        rijndael.CreateDecryptor(bKey, bIV),
-                        CryptoStreamMode.Write);
-
-                    // Faz a escrita dos dados criptografados no espaço de memória   
-                    decryptor.Write(bText, 0, bText.Length);
-                    // Despeja toda a memória.                
-                    decryptor.FlushFinalBlock();
-                    // Instancia a classe de codificação para que a string venha de forma correta         
-                    UTF8Encoding utf8 = new UTF8Encoding();
-                    // Com o vetor de bytes da memória, gera a string descritografada em UTF8       
-                    return utf8.GetString(mStream.ToArray());
-                }
-                else
-                {
-                    // Se a string for vazia retorna nulo                
-                    return null;
-                }
-            }
-            catch
-            {
-                // Se algum erro ocorrer, dispara a exceção            
-                return "Erro ao descriptografar";
-            }
+            string texto_descriptografado = texto_criptografado;
+            return texto_descriptografado;
         }
     }
     class Program
