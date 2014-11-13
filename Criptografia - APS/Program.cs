@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using System.Security;
 using System.Security.Cryptography;
 using System.IO;
-namespace ConsoleApplication7
+
+namespace Criptografia___APS
 {
     public class Criptografia
     {
@@ -118,7 +119,7 @@ namespace ConsoleApplication7
                     // Com o vetor de bytes da memória, gera a string descritografada em UTF8       
                     return utf8.GetString(mStream.ToArray());
                 }
-                else 
+                else
                 {
                     // Se a string for vazia retorna nulo                
                     return null;
@@ -145,7 +146,7 @@ namespace ConsoleApplication7
             SHA256Managed crypt = new SHA256Managed();
             string hash = String.Empty, senha_sha256 = String.Empty;
             byte[] crypto = crypt.ComputeHash(Encoding.ASCII.GetBytes(senha_descriptografada), 0, Encoding.ASCII.GetByteCount(senha_descriptografada));
-            foreach (byte bit in crypto){senha_sha256 += bit.ToString("x2");}
+            foreach (byte bit in crypto) { senha_sha256 += bit.ToString("x2"); }
             string senha_32bytes_md5 = System.Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(senha_sha256.Substring(0, 32)));
             string mensagem_criptografada = Criptografia.Encrypt(texto, senha_32bytes_md5);
             StreamWriter writer = new StreamWriter(local_arquivo, true);
