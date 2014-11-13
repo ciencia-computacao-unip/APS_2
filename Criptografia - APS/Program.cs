@@ -31,6 +31,31 @@ namespace Criptografia___APS
         /// </summary>     
         /// <param name="text">valor a ser criptografado</param>     
         /// <returns>valor criptografado</returns>
+        public static string GerarHash(string texto)
+        {
+            if (texto != string.Empty) { 
+                char[] texto_char = texto.ToCharArray();
+
+                int tamanho_da_hash = 64; //tamanho da hash a ser criada
+                char[] texto_tamanho_fixo_array = new char[tamanho_da_hash]; //cria um novo array que vai deixar o texto em um tamanho fixo
+                for (int x = 0; x < tamanho_da_hash; x++)
+                {
+                    int y = x % (texto_char.Length);
+                    int modificador_x = x % 255;
+                    int modificador_y = y % 255;
+                    
+                    int numero_char = (int)(texto_char[y]), numero_anterior;
+                    if (y > 0) { numero_anterior = (int)(texto_char[y - 1]); } else { numero_anterior = 1; }
+                    int numero_novo_char = (int)(((numero_anterior + 32) + modificador_x * numero_char * (modificador_x * 0.3 + modificador_y)) % 255);
+                    while (numero_novo_char < 33 || numero_novo_char == 127 || numero_novo_char == 0) { numero_novo_char += ((numero_anterior+numero_novo_char + numero_novo_char * (x + 1)) % 255); }
+                    char novo_char = (char)(numero_novo_char);
+                    texto_tamanho_fixo_array[x] = novo_char;
+                }
+                string texto_tamanho_fixo = string.Join("", texto_tamanho_fixo_array);
+                return texto_tamanho_fixo;
+            }
+            return "Texto sem senha!Texto sem senha!Texto sem senha!Texto sem senha!";
+        }
         public static string Criptografar(string text, string cryptoKey)
         {
             try
