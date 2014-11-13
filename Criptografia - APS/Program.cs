@@ -12,25 +12,6 @@ namespace Criptografia___APS
 {
     public class Criptografia
     {
-        /// <summary>     
-        /// Vetor de bytes utilizados para a criptografia (Chave Externa)     
-        /// </summary>     
-        private static byte[] bIV = 
-    { 0x50, 0x08, 0xF1, 0xDD, 0xDE, 0x3C, 0xF2, 0x18,
-        0x44, 0x74, 0x19, 0x2C, 0x53, 0x49, 0xAB, 0xBC };
-
-        /// <summary>     
-        /// Representação de valor em base 64 (Chave Interna)    
-        /// O Valor representa a transformação para base64 de     
-        /// um conjunto de 32 caracteres (8 * 32 = 256bits)    
-        /// A chave é: "Criptografias com Rijndael / AES"     
-        /// </summary>     
-
-        /// <summary>     
-        /// Metodo de criptografia de valor     
-        /// </summary>     
-        /// <param name="text">valor a ser criptografado</param>     
-        /// <returns>valor criptografado</returns>
         public static string GerarHash(string texto)
         {
             if (texto != string.Empty) { 
@@ -58,7 +39,19 @@ namespace Criptografia___APS
         }
         public static string Criptografar(string texto_descriptografado, string senha)
         {
-            string texto_criptografado = texto_descriptografado;
+            char[] texto_descriptografado_char = texto_descriptografado.ToCharArray();
+            int tamanho_texto = texto_descriptografado.Length;
+            char[] senha_char = senha.ToCharArray();
+            int tamanho_senha = senha.Length;
+            string texto_criptografado = string.Empty;
+            for (int x = 0; x < tamanho_texto; x++)
+            {
+                int y = x % tamanho_senha;
+                int numero_char_texto = (int)(texto_descriptografado_char[x]);
+                int numero_char_senha = (int)(senha_char[y]);
+                int novo_numero = numero_char_texto + numero_char_senha;
+                texto_criptografado += novo_numero + "-";
+            }
             return texto_criptografado;
         }
         public static string Descriptografar(string texto_criptografado, string senha)
@@ -133,7 +126,6 @@ namespace Criptografia___APS
 
                     string mensagem_descriptografada = Criptografia.Descriptografar(texto_criptografado, senha_descriptografada);
 
-                    //Console.Write(DecryptMessage(texto_criptografado, senha_criptografada_diminuida) + "\n");
                     Console.Write(mensagem_descriptografada + "\n");
 
                 }
