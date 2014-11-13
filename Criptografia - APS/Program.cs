@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Security;
 using System.Security.Cryptography;
@@ -158,10 +159,8 @@ namespace Criptografia___APS
                 writer.WriteLine("\n");
             }
         }
-        public static void LerMensagem(string nome, string senha, string local_arquivo)
+        public static int LerMensagem(string nome, string senha, string local_arquivo, int linha)
         {
-            int linha = 0;
-            Console.WriteLine("Lendo Mensagens...");
             string[] texto_arquivo = File.ReadAllLines(local_arquivo);
             bool check_nome = false;
             string horario_mensagem = "";
@@ -210,17 +209,18 @@ namespace Criptografia___APS
 
                     //Console.Write(DecryptMessage(texto_criptografado, senha_criptografada_diminuida) + "\n");
                     Console.Write(mensagem_descriptografada + "\n");
-                    Console.ReadKey();
+
                 }
                 linha++;
             }
+            return linha;
         }
         static void Main(string[] args)
         {
 
             Console.Write("Digite seu nome:");
             string nome, senha, local_arquivo;
-            int modo;
+            int modo,linha=0;
             nome = Console.ReadLine();
             Console.Write("Digite uma senha: ");
             senha = Console.ReadLine();
@@ -236,7 +236,8 @@ namespace Criptografia___APS
                 }
                 else if (modo == 2)
                 {
-                    LerMensagem(nome, senha, local_arquivo);
+                    linha = LerMensagem(nome, senha, local_arquivo,linha);
+                    Thread.Sleep(300);
                 }
                 else
                 {
