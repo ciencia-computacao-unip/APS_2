@@ -31,7 +31,7 @@ namespace Criptografia___APS
         /// </summary>     
         /// <param name="text">valor a ser criptografado</param>     
         /// <returns>valor criptografado</returns>
-        public static string Encrypt(string text, string cryptoKey)
+        public static string Criptografar(string text, string cryptoKey)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Criptografia___APS
         /// </summary>     
         /// <param name="text">texto criptografado</param>     
         /// <returns>valor descriptografado</returns>     
-        public static string Decrypt(string text, string cryptoKey)
+        public static string Descriptografar(string text, string cryptoKey)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace Criptografia___APS
             byte[] crypto = crypt.ComputeHash(Encoding.ASCII.GetBytes(senha_descriptografada), 0, Encoding.ASCII.GetByteCount(senha_descriptografada));
             foreach (byte bit in crypto) { senha_sha256 += bit.ToString("x2"); }
             string senha_32bytes_md5 = System.Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(senha_sha256.Substring(0, 32)));
-            string mensagem_criptografada = Criptografia.Encrypt(texto, senha_32bytes_md5);
+            string mensagem_criptografada = Criptografia.Criptografar(texto, senha_32bytes_md5);
             StreamWriter writer = new StreamWriter(local_arquivo, true);
             using (writer)
             {
@@ -205,7 +205,7 @@ namespace Criptografia___APS
                     foreach (byte bit in crypto) { senha_sha256 += bit.ToString("x2"); }
                     string senha_32bytes_md5 = System.Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(senha_sha256.Substring(0, 32)));
 
-                    string mensagem_descriptografada = Criptografia.Decrypt(texto_criptografado, senha_32bytes_md5);
+                    string mensagem_descriptografada = Criptografia.Descriptografar(texto_criptografado, senha_32bytes_md5);
 
                     //Console.Write(DecryptMessage(texto_criptografado, senha_criptografada_diminuida) + "\n");
                     Console.Write(mensagem_descriptografada + "\n");
