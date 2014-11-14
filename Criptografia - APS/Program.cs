@@ -16,19 +16,28 @@ namespace Criptografia___APS
         {
             if (texto != string.Empty) { 
                 char[] texto_char = texto.ToCharArray();
-
+                char[] texto_char_ao_contrario = texto.ToCharArray();
+                Array.Reverse(texto_char_ao_contrario, 0, texto_char_ao_contrario.Length);
                 int tamanho_da_hash = 64; //tamanho da hash a ser criada
                 char[] texto_tamanho_fixo_array = new char[tamanho_da_hash]; //cria um novo array que vai deixar o texto em um tamanho fixo
+                int total_char = 1, total_char_contrario=1;
                 for (int x = 0; x < tamanho_da_hash; x++) 
                 {
                     int y = x % (texto_char.Length); //y serve para copiar os characteres se o texto for menor do que o tamanho da hash
-                    int modificador_x = x % 255; // modificador x é relacionado ao tamanho da hash (ele é usado para fazer contas com o charactere)
-                    int modificador_y = y % 255; // modificador x é relacionado ao tamanho do testo (ele é usado para fazer contas com o charactere)
-                    
+                    int modificador_x = x % 500; // modificador x é relacionado ao tamanho da hash (ele é usado para fazer contas com o charactere)
+                    int modificador_y = y % 500; // modificador x é relacionado ao tamanho do testo (ele é usado para fazer contas com o charactere)
+                    int modificador_x_negativo = 500 % texto_char.Length * y;
+                    int modificador_y_negativo = 500 % texto_char.Length;
+
                     int numero_char = (int)(texto_char[y]), numero_anterior; // numero_char converte o charactere em número
+                    total_char += numero_char;
+                    int numero_char_ao_contrario = (int)(texto_char_ao_contrario[y]); // numero_char converte o charactere em número
+                    total_char_contrario += numero_char_ao_contrario;
+                    int modificador_x_inicial = 1;
+                    if (x < 5) { modificador_x_inicial = 324 * numero_char_ao_contrario; }
                     if (y > 0) { numero_anterior = (int)(texto_char[y - 1]); } else { numero_anterior = 1; } //numero_anterior é o charactere anterior também em número
-                    int numero_novo_char = (int)(((numero_anterior + 32) + modificador_x * numero_char * (modificador_x * 0.3 + modificador_y)) % 255); //a maioria das operações de criptografia são feitas nesse passo
-                    while (numero_novo_char < 33 || numero_novo_char == 127 || numero_novo_char == 0) { numero_novo_char += ((numero_anterior+numero_novo_char + numero_novo_char * (x + 1)) % 255); } //se o charactere for um charactere como backspace, enter, etc, o programa faz outras operações até o mesmo não poder ser utilizado
+                    int numero_novo_char = (int)((total_char_contrario * total_char * modificador_x_inicial * modificador_x_negativo * modificador_y_negativo * numero_char * texto_char.Length * numero_char_ao_contrario + modificador_x * modificador_y) % 500); //a maioria das operações de criptografia são feitas nesse passo
+                    while (numero_novo_char < 33 || numero_novo_char == 127) { numero_novo_char += ((numero_anterior + numero_novo_char + total_char) % 500); } //se o charactere for um charactere como backspace, enter, etc, o programa faz outras operações até o mesmo não poder ser utilizado
                     char novo_char = (char)(numero_novo_char); //transforma o número de volta em caractere
                     texto_tamanho_fixo_array[x] = novo_char; //insere o caractere no array
                 }
@@ -90,7 +99,6 @@ namespace Criptografia___APS
             string segundos = DateTime.Now.ToString("ss");
             string senha_descriptografada = senha + hora;
             string senha_criptografada = Criptografia.GerarHash(senha_descriptografada);
-
             string mensagem_criptografada = Criptografia.Criptografar(texto, senha_criptografada);
             StreamWriter writer = new StreamWriter(local_arquivo, true);
             using (writer)
