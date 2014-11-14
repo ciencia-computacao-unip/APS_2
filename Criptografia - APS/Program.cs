@@ -56,7 +56,26 @@ namespace Criptografia___APS
         }
         public static string Descriptografar(string texto_criptografado, string senha)
         {
-            string texto_descriptografado = texto_criptografado;
+            char[] senha_char = senha.ToCharArray();
+            string[] separador = new string[] { "-" };
+            string[] texto_criptografado_array = texto_criptografado.Split(separador, StringSplitOptions.None);
+            int x = 0;
+            string texto_descriptografado = string.Empty;
+            foreach (string caractere in texto_criptografado_array)
+            {
+                int caractere_numero;
+                bool convertido = Int32.TryParse(caractere, out caractere_numero);
+                if (convertido == true)
+                {
+                    int y = x % senha_char.Length;
+                    int novo_charactere_numero = caractere_numero - (int)senha_char[y];
+                    char novo_charactere = (char)novo_charactere_numero;
+                    texto_descriptografado += novo_charactere;
+                    x++;
+                }
+            }
+
+            //texto_descriptografado = texto_criptografado;
             return texto_descriptografado;
         }
     }
@@ -124,7 +143,7 @@ namespace Criptografia___APS
 
                     string senha_criptografada = Criptografia.GerarHash(senha_descriptografada);
 
-                    string mensagem_descriptografada = Criptografia.Descriptografar(texto_criptografado, senha_descriptografada);
+                    string mensagem_descriptografada = Criptografia.Descriptografar(texto_criptografado, senha_criptografada);
 
                     Console.Write(mensagem_descriptografada + "\n");
 
@@ -155,7 +174,7 @@ namespace Criptografia___APS
                 else if (modo == 2)
                 {
                     linha = LerMensagem(nome, senha, local_arquivo,linha);
-                    Thread.Sleep(300);
+                    Thread.Sleep(500);
                 }
                 else
                 {
