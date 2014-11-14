@@ -46,18 +46,18 @@ namespace Criptografia___APS
         }
         public static string Criptografar(string texto_descriptografado, string senha)
         {
-            char[] texto_descriptografado_char = texto_descriptografado.ToCharArray();
-            int tamanho_texto = texto_descriptografado.Length;
-            char[] senha_char = senha.ToCharArray();
-            int tamanho_senha = senha.Length;
-            string texto_criptografado = string.Empty;
+            char[] texto_descriptografado_char = texto_descriptografado.ToCharArray(); //pega o texto em string e transforma em um array de caracteres
+            int tamanho_texto = texto_descriptografado.Length; //pega o tamanho do texto
+            char[] senha_char = senha.ToCharArray(); //pega a senha em string e transforma em um array de caracteres
+            int tamanho_senha = senha.Length; //pega o tamanho da senha
+            string texto_criptografado = string.Empty; //especificando a variável para que o FOR abaixo insira os caracteres
             for (int x = 0; x < tamanho_texto; x++)
             {
-                int y = x % tamanho_senha;
-                int numero_char_texto = (int)(texto_descriptografado_char[x]);
-                int numero_char_senha = (int)(senha_char[y]);
-                int novo_numero = numero_char_texto + numero_char_senha;
-                texto_criptografado += novo_numero + "-";
+                int y = x % tamanho_senha; //y serve para contar os caracteres da senha e quando acabar, usar os caracteres da senha, ela volta a ser usada.
+                int numero_char_texto = (int)(texto_descriptografado_char[x]); //transforma o charactere em número
+                int numero_char_senha = (int)(senha_char[y]); //transforma o charactere da senha em número
+                int novo_numero = numero_char_texto + numero_char_senha; //soma os dois characteres
+                texto_criptografado += novo_numero + "-"; //insere o numero e um "-" no texto criptografado
             }
             return texto_criptografado;
         }
