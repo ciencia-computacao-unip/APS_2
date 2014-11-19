@@ -35,7 +35,7 @@ namespace Criptografia___APS
                     if (x < 5) { modificador_x_inicial = 324 * numero_char_ao_contrario; }
                     if (y > 0) { numero_anterior = (int)(texto_char[y - 1]); } else { numero_anterior = 1; } //numero_anterior é o charactere anterior também em número
                     int numero_novo_char = (int)((total_char_contrario * total_char * modificador_x_inicial * modificador_x_negativo * modificador_y_negativo * numero_char * texto_char.Length * numero_char_ao_contrario + modificador_x * modificador_y) % 500); //a maioria das operações de criptografia são feitas nesse passo
-                    while (numero_novo_char < 33 || numero_novo_char == 127) { numero_novo_char += ((numero_anterior + numero_novo_char + total_char) % 500); } //se o charactere for um charactere como backspace, enter, etc, o programa faz outras operações até o mesmo não poder ser utilizado
+                    while (numero_novo_char <= 33 || numero_novo_char == 127) { numero_novo_char = ((numero_novo_char + x + y +3) % 500); } //se o charactere for um charactere como backspace, enter, etc, o programa faz outras operações até o mesmo não poder ser utilizado
                     char novo_char = (char)(numero_novo_char); //transforma o número de volta em caractere
                     texto_tamanho_fixo_array[x] = novo_char; //insere o caractere no array
                 }
