@@ -61,7 +61,7 @@ namespace criptografias
             }
             return texto_criptografado;
         }
-        public static string Descriptografar(string texto_criptografado, string senha)
+        public static string Descriptografar(string texto_criptografado, string senha) //descriptografa o texto a se a senha for igual
         {
             char[] senha_char = senha.ToCharArray();
             string[] separador = new string[] { "-" };
@@ -161,7 +161,7 @@ namespace criptografias
             }
             return linha;
         }
-        static void Main(string[] args)
+        static void Main(string[] args) // Este main existe apenas para, se o professor quiser apenas um executável, é possível gera-lo facilmente.
         {
             Console.Write("Digite seu nome:");
             string nome, senha, local_arquivo;
