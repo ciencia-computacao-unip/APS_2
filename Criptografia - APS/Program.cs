@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Criptografia___APS
+namespace criptografias
 {
     public class Criptografia
     {
@@ -86,7 +86,7 @@ namespace Criptografia___APS
             return texto_descriptografado;
         }
     }
-    class Program
+    public class principal
     {
         public static void EscreverMensagem(string nome, string senha, string local_arquivo)
         {
@@ -109,58 +109,60 @@ namespace Criptografia___APS
         }
         public static int LerMensagem(string nome, string senha, string local_arquivo, int linha)
         {
-            string[] texto_arquivo = File.ReadAllLines(local_arquivo);
-            bool check_nome = false;
-            string horario_mensagem = "";
-            while (linha < texto_arquivo.Length)
+            if (File.Exists(local_arquivo))
             {
-                int segundos = 0;
-                string texto_criptografado;
-                if (linha % 5 == 0 && texto_arquivo[linha] != "")
+                string[] texto_arquivo = File.ReadAllLines(local_arquivo);
+                bool check_nome = false;
+                string horario_mensagem = "";
+                while (linha < texto_arquivo.Length)
                 {
-                    if (texto_arquivo[linha] != nome)
+                    int segundos = 0;
+                    string texto_criptografado;
+                    if (linha % 5 == 0 && texto_arquivo[linha] != "")
                     {
-                        check_nome = true;
-                        Console.Write(texto_arquivo[linha] + " disse: ");
+                        if (texto_arquivo[linha] != nome)
+                        {
+                            check_nome = true;
+                            Console.Write(texto_arquivo[linha] + " disse: ");
+                        }
+                        else { check_nome = false; }
                     }
-                    else { check_nome = false; }
-                }
-                if (linha % 5 == 1 && texto_arquivo[linha] != "" && check_nome == true)
-                {
-                    int.TryParse(texto_arquivo[linha], out segundos);
-                    DateTime novo;
-                    DateTime agora = DateTime.Now;
-                    if (agora.Second < segundos)
+                    if (linha % 5 == 1 && texto_arquivo[linha] != "" && check_nome == true)
                     {
-                        novo = new DateTime(agora.Year, agora.Month, agora.Day, agora.Hour, agora.Minute - 1, segundos);
+                        int.TryParse(texto_arquivo[linha], out segundos);
+                        DateTime novo;
+                        DateTime agora = DateTime.Now;
+                        if (agora.Second < segundos)
+                        {
+                            novo = new DateTime(agora.Year, agora.Month, agora.Day, agora.Hour, agora.Minute - 1, segundos);
+                        }
+                        else
+                        {
+                            novo = new DateTime(agora.Year, agora.Month, agora.Day, agora.Hour, agora.Minute, segundos);
+                        }
+                        horario_mensagem = novo.ToString("ddMMyyhmmss");
                     }
-                    else
+                    if (linha % 5 == 2 && texto_arquivo[linha] != "" && check_nome == true)
                     {
-                        novo = new DateTime(agora.Year, agora.Month, agora.Day, agora.Hour, agora.Minute, segundos);
+                        texto_criptografado = texto_arquivo[linha];
+
+
+                        string senha_descriptografada = senha + horario_mensagem;
+
+                        string senha_criptografada = Criptografia.GerarHash(senha_descriptografada);
+
+                        string mensagem_descriptografada = Criptografia.Descriptografar(texto_criptografado, senha_criptografada);
+
+                        Console.Write(mensagem_descriptografada + "\n");
+
                     }
-                    horario_mensagem = novo.ToString("ddMMyyhmmss");
+                    linha++;
                 }
-                if (linha % 5 == 2 && texto_arquivo[linha] != "" && check_nome == true)
-                {
-                    texto_criptografado = texto_arquivo[linha];
-
-
-                    string senha_descriptografada = senha + horario_mensagem;
-
-                    string senha_criptografada = Criptografia.GerarHash(senha_descriptografada);
-
-                    string mensagem_descriptografada = Criptografia.Descriptografar(texto_criptografado, senha_criptografada);
-
-                    Console.Write(mensagem_descriptografada + "\n");
-
-                }
-                linha++;
             }
             return linha;
         }
         static void Main(string[] args)
         {
-
             Console.Write("Digite seu nome:");
             string nome, senha, local_arquivo;
             int modo,linha=0;

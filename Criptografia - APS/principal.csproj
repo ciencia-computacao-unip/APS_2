@@ -7,8 +7,8 @@
     <ProjectGuid>{30C311A7-334F-4C2B-9DDE-0DF280491BF4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Criptografia___APS</RootNamespace>
-    <AssemblyName>Criptografia - APS</AssemblyName>
+    <RootNamespace>criptografias</RootNamespace>
+    <AssemblyName>principal</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
