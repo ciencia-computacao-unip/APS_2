@@ -28,7 +28,6 @@ Primeiro é necessário ter a senha para sincronia. Essa senha pode ser, futuram
 Coloque a senha de sincronia em um variável string $hash_descriptografada
 Concatenar a $hash com o o horário (definir a forma de exibição.) no PHP o script para obter o tempo seria o seguinte: time(); (Tomar cuidado com mudança de fuso horários. Ver o funcionamento no C#) 
 Com isso, temos uma string de $hash_descriptografada como a seguinte: "senhasupersecreta1408733847"
-Agora precisamos encriptar isso na hash sha256. No PHP é só fazer o seguinte: hash('sha256', $hash_descriptografada);
+Agora precisamos encriptar isso na hash, com a classe Criptografia.
 Pronto, essa hash foi gerada e após isso é necessário gerar a hash da variável $msg
 
-C# e NodeJS: http://stackoverflow.com/questions/13714103/hashing-a-password-using-sha256-and-net-node-js
