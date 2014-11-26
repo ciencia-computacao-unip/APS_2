@@ -48,3 +48,10 @@ Como funciona o programa para descriptografar:
 				1.4.3.4- Os caracteres são concatenados em uma mesma string;
 			1.4.4- A função retorna o texto descriptografado.
 		1.5- O programa exibe o texto descriptografado juntamente com o nome da pessoa que enviou.
+
+
+Descrição dos Programas.exe enviados:
+
+	1- 'Principal.exe' é o programa que contém todos os códigos, é uma junção entre os programas 'Ler Mensagem' e 'Escrever Mensagem', utilize-o apenas se você entendeu como o programa funciona.
+	2- 'Ler Mensagem.exe' é apenas uma forma mais fácil de abrir o programa 'Principal.exe', apenas para ler mensagens.
+	3- 'Escrever Mensagem.exe' tem o mesmo foco do programa 'Ler Mensagem.exe', facilitar o entendimento do programa 'Principal.exe', mas apenas para escrever mensagens.
