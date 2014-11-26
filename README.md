@@ -1,13 +1,13 @@
 Como rodar o programa:
 
-1- Primeiramente, deve-se atentar para a existencia de 2 programas : 'Leitor de Mensagens' e 'Escritor de Mensagens';
-2- Abra a solução do projeto;
-3- Execute os 2 programas (caso veja pelo código fonte, apenas aperte em 'Start Debug' e os 2 programas serão abertos.);
-4- Ao rodar os programas, os 2 perguntarão alguns dados como Nome, Senha e Local do Arquivo;
-5- Os 2 programas devem conter Nome diferentes, se você colocar o mesmo nome, o programa não enviará a mensagem para o próximo;
-6- Além disso, as senhas devem ser idênticas;
-7- No caso do Local do Arquivo, deve ser especificado um mesmo local, por exemplo: "C:/arquivo.txt"
-8- Assim que os 2 programas estiverem configurados, começaram a executar suas funções. Para testar, envie uma mensagem a partir do 'Escritor de Mensagens', a mesma será recebida no 'Leitor de Mensagens'.
+	1- Primeiramente, deve-se atentar para a existencia de 2 programas : 'Leitor de Mensagens' e 'Escritor de Mensagens';
+	2- Abra a solução do projeto;
+	3- Execute os 2 programas (caso veja pelo código fonte, apenas aperte em 'Start Debug' e os 2 programas serão abertos.);
+	4- Ao rodar os programas, os 2 perguntarão alguns dados como Nome, Senha e Local do Arquivo;
+	5- Os 2 programas devem conter Nome diferentes, se você colocar o mesmo nome, o programa não enviará a mensagem para o próximo;
+	6- Além disso, as senhas devem ser idênticas;
+	7- No caso do Local do Arquivo, deve ser especificado um mesmo local, por exemplo: "C:/arquivo.txt"
+	8- Assim que os 2 programas estiverem configurados, começaram a executar suas funções. Para testar, envie uma mensagem a partir do 'Escritor de Mensagens', a mesma será recebida no 'Leitor de Mensagens'.
 
 
 Como funciona o programa para criptografar:
@@ -33,6 +33,7 @@ Como funciona o programa para criptografar:
 	
 	
 Como funciona o programa para descriptografar:	
+
 	1- A cada 5 linhas recebidas no arquivo:
 		1.1- Encontra o horário em que o usuário mandou a mensagem, a partir dos segundos (assim, se passar mais de 1 minuto do envio da mensagem, a senha se torna errada);
 		1.2- O programa pega a senha digitada no inicio do programa e concatena com o horário encontrado (ddMMyyhmmss);
